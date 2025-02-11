@@ -66,9 +66,11 @@ mount "/dev/$VG_NAME/$LV_SHARED" "$SHARED_DIR"
 # Activer le swap
 swapon "/dev/$VG_NAME/$LV_SWAP"
 
-# Installation du système de base
+# Installation du système de base avec une maj avant pour eviter les erreurs
+pacman -Sy reflector --noconfirm
+reflector --latest 10 --sort rate --save /etc/pacman.d/mirrorlist
 
-yes | pacstrap "$MOUNT_POINT" base base-devel linux linux-firmware lvm2 cryptsetup vim nano sudo networkmanager
+pacstrap "$MOUNT_POINT" base base-devel linux linux-firmware lvm2 cryptsetup vim nano sudo networkmanager
 
 
 # Génération du fstab
