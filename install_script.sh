@@ -68,7 +68,7 @@ swapon "/dev/$VG_NAME/$LV_SWAP"
 
 # Installation du système de base
 
-pacstrap "$MOUNT_POINT" base base-devel linux linux-firmware lvm2 cryptsetup vim nano sudo networkmanager --noconfirm
+yes | pacstrap "$MOUNT_POINT" base base-devel linux linux-firmware lvm2 cryptsetup vim nano sudo networkmanager
 
 
 # Génération du fstab
