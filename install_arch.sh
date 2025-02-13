@@ -116,12 +116,15 @@ pacman -S xorg firefox git virtualbox virtualbox-guest-utils linux-headers --noc
 systemctl enable vboxservice
 
 # Création du dossier partagé et permissions
-mkdir /home/$USER1/shared
-mkdir /home/$USER2/shared
-chmod 770 /home/$USER1/shared
-chmod 770 /home/$USER2/shared
-chown $USER1:$USER1 /home/$USER1/shared
-chown $USER2:$USER2 /home/$USER2/shared
+groupadd sharedgroup
+
+usermod -aG sharedgroup $USER1
+usermod -aG sharedgroup $USER2
+
+mkdir /home/shared
+chown :sharedgroup /home/shared
+chmod 770 /home/shared
+
 
 # Configuration de Hyprland
 mkdir -p /home/$USER1/.config/hypr
