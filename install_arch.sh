@@ -112,7 +112,7 @@ echo "$USER2:$USER_PASSWORD" | chpasswd
 echo "%wheel ALL=(ALL) ALL" >> /etc/sudoers
 
 # Installation des paquets nécessaires
-pacman -S xorg firefox git virtualbox hyprland --noconfirm
+pacman -S xorg firefox git virtualbox virtualbox-guest-utils linux-headers --noconfirm
 systemctl enable vboxservice
 
 # Création du dossier partagé et permissions
