@@ -1,7 +1,10 @@
 #!/bin/bash
 
 instal() {
-    if ! is_root; then echo "Il faut être root pour cette action."; return 1; fi
+    if ! is_root; then 
+        echo "Il faut être root pour cette action."; 
+        return 1; 
+    fi
     echo "Installation de l'environnement sécurisé"
 
     read -p "Entrez la taille de l'environnement (ex: 5G ou 512M): " TAILLE
@@ -53,7 +56,11 @@ instal() {
 }
 
 ouvrir() {
-    if ! is_root; then echo "Il faut être root pour cette action."; return 1; fi
+    if ! is_root; then 
+        echo "Il faut être root pour cette action."; 
+        return 1; 
+    fi
+
     LOOP=$(losetup --find --show "$IMAGE")
     cryptsetup luksOpen "$LOOP" $NOM_DU_VOLUME
     mkdir -p "$POINT_MONT"
@@ -66,7 +73,11 @@ ouvrir() {
 }
 
 fermer() {
-    if ! is_root; then echo "Il faut être root pour cette action."; return 1; fi
+    if ! is_root; then 
+        echo "Il faut être root pour cette action."; 
+        return 1; 
+    fi
+    
     umount "$POINT_MONT"
     cryptsetup luksClose $NOM_DU_VOLUME
     echo "Environnement fermé"

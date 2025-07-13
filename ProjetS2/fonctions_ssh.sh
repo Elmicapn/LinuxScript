@@ -40,6 +40,7 @@ importer_ssh_config() {
 
     START=$(grep -n "^Host $HOST_SELECTED" "$SSH_CONF" | cut -d: -f1)
     END=$(tail -n +"$((START+1))" "$SSH_CONF" | grep -n "^Host " | head -n1 | cut -d: -f1)
+
     if [ -z "$END" ]; then
         END=$(wc -l < "$SSH_CONF")
         END=$((END+1))
@@ -57,6 +58,7 @@ importer_ssh_config() {
     echo "[*] Config SSH importée dans $CONF."
 
     ID_FILE=$(grep 'IdentityFile' "$CONF" | awk '{print $2}' | head -n1)
+    
     if [ -n "$ID_FILE" ] && [ -f "$ID_FILE" ]; then
         cp "$ID_FILE" "$POINT_MONT/"
         chmod 600 "$POINT_MONT/$(basename "$ID_FILE")"

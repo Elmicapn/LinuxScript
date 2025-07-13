@@ -4,15 +4,15 @@ genere_gpg_key() {
     mkdir -p "$GPG_KEY_PATH"
     echo "[*] Génération automatique d'une clé GPG pour $USER"
     gpg --batch --gen-key <<EOF
-Key-Type: default
-Key-Length: 4096
-Subkey-Type: default
-Name-Real: $USER
-Name-Comment: clef_env
-Name-Email: ${USER}@env.local
-Expire-Date: 0
-%no-protection
-%commit
+    Key-Type: default
+    Key-Length: 4096
+    Subkey-Type: default
+    Name-Real: $USER
+    Name-Comment: clef_env
+    Name-Email: ${USER}@env.local
+    Expire-Date: 0
+    %no-protection
+    %commit
 EOF
 
     KEYID=$(gpg --list-keys --with-colons | grep '^pub' | tail -1 | cut -d: -f5)
@@ -54,10 +54,12 @@ import_gpg_to_keyring() {
         return 1
     }
     read -p "Chemin du fichier .asc à importer : " FIC
+    
     if [ ! -f "$FIC" ]; then
         echo "[!] Fichier inexistant."
         return 1
     fi
+
     gpg --import "$FIC"
     echo "Clé importée dans le trousseau de $USER"
 }
